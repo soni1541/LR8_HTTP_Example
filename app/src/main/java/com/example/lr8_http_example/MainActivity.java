@@ -48,14 +48,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void ... params) {
             Request.Builder builder = new Request.Builder();
-            Request request = builder.url("https://catfact.ninja/fact").build(); //.method()
+            Request request = builder.url("https://api.openweathermap.org/data/2.5/weather?lang=ru&appid=ff41c1373d337fc2b98d2b185e517c68").build(); //.method()
             OkHttpClient client = new OkHttpClient().newBuilder().build();
 
             try {
                 Response response = client.newCall(request).execute();
                 JSONObject jsonObject = new JSONObject(response.body().string());
 
-                return jsonObject.getString("fact") + "\n"+ jsonObject.getString("length");
+                return jsonObject.getString("weather.main") + "\n"+ jsonObject.getString("main.temp");
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
