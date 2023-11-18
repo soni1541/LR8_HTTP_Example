@@ -12,20 +12,23 @@
         android:layout_height="match_parent"
         android:layout_above="@id/btn_next_fact"
         android:gravity="center"
-        android:textSize="28dp"/>
+        android:textColor="#000000"
+        android:textSize="28dp"
+        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/text_number"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/btn_next_fact"
-        android:gravity="center"
-        android:textSize="28dp" />
     <Button
         android:id="@+id/btn_next_fact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Следующий факт"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="#2196F3"
+        android:text="Узнать погоду" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Казунина Софья Т-403901 ИСиТ"
+        android:textColor="#000000" />
 
 </RelativeLayout>

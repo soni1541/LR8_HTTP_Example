@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_next_fact;
     private TextView text_fact;
 
-    private TextView number_fact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         btn_next_fact = findViewById(R.id.btn_next_fact);
         text_fact = findViewById(R.id.text_fact);
-        number_fact = findViewById(R.id.text_number);
 
         btn_next_fact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,14 +47,19 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void ... params) {
             Request.Builder builder = new Request.Builder();
-            Request request = builder.url("https://api.openweathermap.org/data/2.5/weather?lang=ru&appid=ff41c1373d337fc2b98d2b185e517c68").build(); //.method()
+            Request request = builder.url("https://api.openweathermap.org/data/2.5/weather?lat=57.92&lon=60.00&lang=ru&appid=4d4c2f2425217b0cb90b82a9d5e7fade&units=metric").build(); //.method()
             OkHttpClient client = new OkHttpClient().newBuilder().build();
 
             try {
                 Response response = client.newCall(request).execute();
+                //JSONObject jsonObject = new JSONObject(response.body().string());
                 JSONObject jsonObject = new JSONObject(response.body().string());
+                // weather.main   main.temp
+                String weather_main = jsonObject.getJSONArray("weather").getJSONObject(0).getString("main");
+                String weather_description = jsonObject.getJSONArray("weather").getJSONObject(0).getString("description");
+                String main_temp = jsonObject.getJSONObject("main").getString("temp");
 
-                return jsonObject.getString("weather.main") + "\n"+ jsonObject.getString("main.temp");
+                return "Погода в Нижнем Тагиле"+ "\n\n" + weather_main + "\n" +  weather_description+ "\n" + main_temp + " °C";
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
